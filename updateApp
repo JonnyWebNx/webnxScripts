@@ -1,24 +1,24 @@
 #!/bin/sh
-cd ~/webnxVite || return;
+cd ~/webnxVite || exit 1;
 # Pull newest changes from github
 git init;
 git pull;
 # Build front end
 npm run build;
 # Switch to backend folder
-cd ~/webnxAPI || return;
+cd ~/webnxAPI || exit 1;
 # Pull updates from GitHub
 git init;
 git pull;
 npm run build;
 # Move to home directory
-cd ~ || return;
+cd ~ || exit 1;
 # Remove old site assets
 rm -r ~/webnxAPI/dist/static
 # Move built front end to static folder on backend
 mv ~/webnxVite/dist ~/webnxAPI/dist/static
 # Go back into backend folder
-cd ~/webnxAPI || return;
+cd ~/webnxAPI || exit 1;
 # Clear pm2
 pm2 delete all;
 # Start new pm2 instances

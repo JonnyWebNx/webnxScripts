@@ -62,21 +62,21 @@ apt install nodejs
 apt install npm
 
 # Move to home directory
-cd /home/"$user" || exit;
+cd /home/"$user" || exit 1;
 
 # Clone front end repository
 echo "Cloning and installing front end...";
 git clone "$frontend_github_url";
-cd /home/"$user"/webnxVite || exit;
+cd /home/"$user"/webnxVite || exit 1;
 npm install;
 
 # Return to home directory
-cd /home/"$user" || exit;
+cd /home/"$user" || exit 1;
 
 # Clone back end repository
 echo "Cloning and installing back end...";
 git clone "$backend_github_url";
-cd /home/"$user"/webnxAPI || exit;
+cd /home/"$user"/webnxAPI || exit 1;
 npm install;
 
 # Change ownership of all directories back to user
