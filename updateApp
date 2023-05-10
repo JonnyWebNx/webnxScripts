@@ -4,6 +4,7 @@ cd ~/webnxVite || return;
 git init;
 git pull;
 # Build front end
+npm install;
 npm run build;
 # Switch to backend folder
 cd ~/webnxAPI || return;
@@ -11,6 +12,7 @@ rm -r dist;
 # Pull updates from GitHub
 git init;
 git pull;
+npm install;
 npm run build;
 # Move to home directory
 cd ~ || return;

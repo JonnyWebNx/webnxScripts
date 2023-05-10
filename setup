@@ -51,8 +51,8 @@ echo "Adding mongodb as a daemon...";
 systemctl enable mongod;
 
 # bind database to ip address
-echo "Binding mongodb to ip address...";
-mongod --bind-ip "$ip_address";
+# echo "Binding mongodb to ip address...";
+# mongod --bind-ip "$ip_address";
 
 # ADD TLS ENCRYPTION HERE
 
@@ -84,4 +84,4 @@ npm install;
 chown -R "$user" /home/"$user";
 
 echo "Add the .env files to the webnxVite and webnxAPI folders and use the update script to finish setup."
-echo "Nginx and TLS encryption for MongoDB will need to be configured manually."
+echo "Nginx and authentication for MongoDB will need to be configured manually."
