@@ -1,0 +1,4 @@
+#!/bin/sh
+cd ~/webnxAPI || exit 1;
+pm2 delete all;
+pm2 start dist/src/index.js --name webnxAPI -i 16;
