@@ -1,29 +1,35 @@
 #!/bin/sh
-cd ~/webnxVite || return;
-# Pull newest changes from github
-git init;
-git pull;
-# Build front end
-npm install;
-npm run build;
+cd ~/webnxVite || exit 1;
+fe_current_branch=$(git rev-parse --abbrev-ref HEAD);
+fe_changes=$(git diff "origin/$current_branch");
+if [ wc "$fe_changes" -ne 0 ]; then
+	# Pull newest changes from github
+	git init;
+	git pull;
+	# Build front end
+	npm install;
+	npm run build;
+	# Move built front end to static folder on backend
+	mv ~/webnxVite/dist ~/webnxAPI/dist/static
+fi
 # Switch to backend folder
-cd ~/webnxAPI || return;
-rm -r dist;
-# Pull updates from GitHub
-git init;
-git pull;
-npm install;
-npm run build;
-# Move to home directory
-cd ~ || return;
-# Remove old site assets
-# Move built front end to static folder on backend
-mv ~/webnxVite/dist ~/webnxAPI/dist/static
-# Go back into backend folder
-cd ~/webnxAPI || return;
-# Clear pm2
-pm2 delete all;
-# Start new pm2 instances
-pm2 start dist/src/index.js --name webnxAPI -i 16;
+cd ~/webnxAPI || exit 1;
+# Get current branch
+be_current_branch=$(git rev-parse --abbrev-ref HEAD);
+# Check for any changes
+be_changes=$(git diff "origin/$current_branch");
+# If chnages were made on the backend
+if [ wc "$be_changes" -ne 0 ]; then
+	# Pull newest changes from github
+	git init;
+	git pull;
+	# Build front end
+	npm install;
+	npm run build;
+	# Clear pm2
+	pm2 delete all;
+	# Start new pm2 instances
+	pm2 start dist/src/index.js --name webnxAPI -i 16;
+fi
 # exit
 exit 0;
