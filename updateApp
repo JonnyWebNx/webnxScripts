@@ -1,5 +1,6 @@
 #!/bin/sh
 cd ~/webnxVite || exit 1;
+git fetch;
 fe_current_branch=$(git rev-parse --abbrev-ref HEAD);
 fe_changes=$(git diff "origin/$fe_current_branch");
 if [ $(echo "$fe_changes" | wc -w) -ne 0 ]; then
@@ -16,6 +17,7 @@ else
 fi
 # Switch to backend folder
 cd ~/webnxAPI || exit 1;
+git fetch;
 # Get current branch
 be_current_branch=$(git rev-parse --abbrev-ref HEAD);
 # Check for any changes
