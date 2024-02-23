@@ -2,7 +2,7 @@
 cd ~/webnxVite || exit 1;
 fe_current_branch=$(git rev-parse --abbrev-ref HEAD);
 fe_changes=$(git diff "origin/$fe_current_branch");
-if [ $(wc "$fe_changes") -ne 0 ]; then
+if [ $(echo "$fe_changes" | wc -w) -ne 0 ]; then
 	# Pull newest changes from github
 	git init;
 	git pull;
@@ -21,7 +21,7 @@ be_current_branch=$(git rev-parse --abbrev-ref HEAD);
 # Check for any changes
 be_changes=$(git diff "origin/$fe_current_branch");
 # If chnages were made on the backend
-if [ $(wc "$be_changes") -ne 0 ]; then
+if [ $(echo "$be_changes" | wc -w) -ne 0 ]; then
 	# Pull newest changes from github
 	git init;
 	git pull;
