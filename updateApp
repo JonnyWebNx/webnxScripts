@@ -10,7 +10,9 @@ if [ wc "$fe_changes" -ne 0 ]; then
 	npm install;
 	npm run build;
 	# Move built front end to static folder on backend
-	mv ~/webnxVite/dist ~/webnxAPI/dist/static
+	mv ~/webnxVite/dist ~/webnxAPI/dist/static > /dev/null 2>&1
+else
+	echo "No changes on frontend, skipping build and copy"
 fi
 # Switch to backend folder
 cd ~/webnxAPI || exit 1;
@@ -30,6 +32,9 @@ if [ wc "$be_changes" -ne 0 ]; then
 	pm2 delete all;
 	# Start new pm2 instances
 	pm2 start dist/src/index.js --name webnxAPI -i 16;
+else
+	echo "No changes on backend, skipping build and restart"
 fi
+echo "Done."
 # exit
 exit 0;
