@@ -1,28 +1,30 @@
 #!/bin/bash
-backend_github_url="https://github.com/cameron-mckay/webnxAPI";
-frontend_github_url="https://github.com/cameron-mckay/webnxVite";
-ip_address=$(hostname -i);
-user=$(logname);
+
+
+backend_github_url="https://github.com/cameron-mckay/webnxAPI"; # GETS BACKEND URL
+frontend_github_url="https://github.com/cameron-mckay/webnxVite"; #GETS FRONTEND URL
+ip_address=$(hostname -i); # GETS IP ADDRESS OF CURRENT MACHINE
+user=$(logname); # GETS USERNAME OF PERSON WHO LOGS IN. USEFUL LATER WHEN NAVIGATING FILE SYSTEM 
 
 # Exit if not running as super user
-if [ "$(id -u)" -ne 0 ]; then echo "Please run as sudo." >&2; exit 1; fi
+if [ "$(id -u)" -ne 0 ]; then echo "Please run as sudo." >&2; exit 1; fi 
 
 # start in root directory
 cd /;
 
 # Make sure gpupg is installed
-apt-get install gnupg;
+apt-get install gnupg; #GNUPG IS AN OPEN SOURCE ENCRYPTION TOOL, IN THIS CASE ITS USED TO VERIFY THAT THE MONGODB PACKAGES WE DOWNLOAD ARE SECURE, AND REALLY FROM MONGODB
 # Import mongodb public gpg cd
 echo "Adding mongodb keys...";
-wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add -;
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add -; #DOWNLOADS MONGODB PUBLIC KEY AND ADDS IT TO SYSTEM 
 
 # Create list file for mongodb
 echo "Adding mongodb repositories...";
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list;
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list; # ADDS OFFICIAL MONGODB REPO TO SERVERS PACKAGE MANAGER 
 
 # reload package database
 echo "Updating apt...";
-apt-get update;
+apt-get update;  #REFRESH TO LET THE SYSTEM KNOW THAT THE MONGODB REPOSITORY IS AVAILABLE FOR INSTALL 
 
 # Install latest stable version of mongodb
 echo "Installing mongodb...";
@@ -62,6 +64,7 @@ apt install nodejs
 apt install npm
 
 npm install pm2 -g
+
 # Move to home directory
 cd /home/"$user" || exit 1;
 
