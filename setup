@@ -1,8 +1,11 @@
 #!/bin/bash
 
 
-backend_github_url="https://github.com/cameron-mckay/webnxAPI"; # GETS BACKEND URL
-frontend_github_url="https://github.com/cameron-mckay/webnxVite"; #GETS FRONTEND URL
+#backend_github_url="https://github.com/cameron-mckay/webnxAPI"; # GETS BACKEND URL
+#frontend_github_url="https://github.com/cameron-mckay/webnxVite"; #GETS FRONTEND URL
+
+backend_github_url="https://github.com/JonnyWebNx/webnxAPI"; # GETS BACKEND URL
+frontend_github_url="https://github.com/JonnyWebNx/webnxVite"; #GETS FRONTEND URL
 ip_address=$(hostname -i); # GETS IP ADDRESS OF CURRENT MACHINE
 user=$(logname); # GETS USERNAME OF PERSON WHO LOGS IN. USEFUL LATER WHEN NAVIGATING FILE SYSTEM 
 
